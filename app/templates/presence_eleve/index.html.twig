@@ -1,0 +1,61 @@
+{% extends 'admin/_base_admin.html.twig' %}
+{% block title %}Presence Eleve{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="c-grey-900 mB-20">Presence du jours</h4>
+                    </div>
+                    
+                </div>
+                {{ form_start(form) }}
+                        <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                {% if is_granted('ROLE_PROFS') %}
+                                    <th>Check</th>
+                                {% endif %}
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prenom</th>
+                                {% if is_granted('ROLE_PROFS') %}
+                                    <th>Check</th>
+                                {% endif %}
+                            </tr>
+                            </tfoot>
+                            <tbody>
+                            {{ form_row(form.status) }}
+                            {{ form_row(form.User) }}
+                            {% for el in eleve %}
+                                <tr>
+                                    <td>{{ el.getUser().getNom() }}</td>
+                                    <td>{{ el.getUser().getPrenom() }}</td>
+                                    {% if is_granted('ROLE_PROFS') %}
+                                        <td>
+                                            Check : 
+                                            
+                                        </td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            </div>
+                                <div class="col-md-12 d-block mt-2 text-center">
+                                    <button type="submit" class="btn btn-lg btn-primary">
+                                        <i class="ti-save"></i> &nbsp;Enregistrer
+                                    </button>
+                                </div>
+                        </table>
+
+                {{ form_end(form, {render_rest: false}) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

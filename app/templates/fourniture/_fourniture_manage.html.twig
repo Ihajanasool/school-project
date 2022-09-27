@@ -1,0 +1,34 @@
+{% extends 'admin/_base_admin.html.twig' %}
+
+{% block title %}Fourniture{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="bd mb-1 bgc-white p-20 sk-bd">
+                            <h6>Information</h6>
+                            
+                            {{ form_row(form.name) }}
+                            {{ form_row(form.number) }}
+                            <p>Date</p>
+                            {{ form_widget(form.date_insert) }}
+                            {{ form_row(form.room) }}
+                        </div>
+                        
+                    </div>
+                   
+                </div>
+                <div class="col-md-12 d-block mt-2 text-center">
+                    <button type="submit" class="btn btn-lg btn-primary">
+                        <i class="ti-save"></i> &nbsp;Enregistrer
+                    </button>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

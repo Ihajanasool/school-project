@@ -1,0 +1,264 @@
+<div class="sidebar">
+    <div class="sidebar-inner" style ="background:#0086aa;">
+        <div class="sidebar-logo">
+            <div class="peers ai-c fxw-nw">
+                <div class="peer peer-greed"><a class="sidebar-link td-n" href="{{ path('admin_dashboard') }}">
+                        <div class="peers ai-c fxw-nw">
+                            <div class="peer">
+                                <div class="logo"><img src="{{ asset('images/SekolikoLogo.png') }}" alt=""></div>
+                            </div>
+                            <div class="peer peer-greed"><h5 class="lh-1 mB-0 logo-text">FAMMMi</h5></div>
+                        </div>
+                    </a></div>
+                <div class="peer">
+                    <div class="mobile-toggle sidebar-toggle"><a href="" class="td-n"><i
+                                    class="ti-arrow-circle-left"></i></a></div>
+                </div>
+            </div>
+        </div>
+        <ul class="sidebar-menu scrollable pos-r">
+            <li class="nav-item mT-30  {% if menu_dashboard is defined %} actived{% endif %}">
+                <a class="sidebar-link" href="{{ path('admin_dashboard') }}">
+                    <span class="icon-holder">
+                        <i class="c-blue-500 ti-dashboard"></i>
+                    </span>
+                    <span class="title">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item  {% if menu_docs is defined %} actived{% endif %}">
+                <a class="sidebar-link" href="{{ path('docs_accueil') }}">
+                    <span class="icon-holder">
+                        <i class="c-blue-500 ti-info-alt"></i>
+                    </span>
+                    <span class="title">Document</span>
+                </a>
+            </li>
+
+            {% if not is_granted('ROLE_SUPER_ADMIN') %}
+                
+                {% if not is_granted('ROLE_PROFS') %}
+
+                            <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SECRETAIRE') %}
+            <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                
+
+                    <span class="icon-holder">
+                         <i class="ti-credit-card"></i>
+                    </span>
+                        <span class="title">Paiement</span>
+                        <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('app_payment') }}">Liste</a></li>
+                        <li><a href="{{ path('cantine_create') }}">Cantine et autre</a></li>
+                        <li><a href="{{ path('ecolage_create') }}">Ecolage</a></li>
+                    </ul>
+                </li>
+
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFS') %}
+
+                <li class="nav-item">
+                    <a class="sidebar-link" href="{{ path('session_list',{"id":app.user.id}) }}">
+                    <span class="icon-holder">
+                        <i class="c-orange-500 ti-clipboard"></i>
+                    </span>
+                        <span class="title">Sessions</span>
+                    </a>
+                </li>
+                        {% endif %}
+
+                
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
+            
+
+
+
+
+
+
+                <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                         <i class="ti-user"></i>
+                    </span>
+                        <span class="title">Administration</span>
+                        <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('administrator_list') }}">Personnel Administratif</a></li>
+                        <li><a href="{{ path('administration_type_list') }}">Poste</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                         <i class="ti-home"></i>
+                    </span>
+                        <span class="title">Infrastructure</span>
+                        <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('room_list') }}">Salle</a></li>
+                        <li><a href="{{ path('app_fourniture') }}">Fourniture</a></li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item dropdown {% if menu_scolarite is defined %} open actived{% endif %}">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                         <i class="c-orange-500 ti-check-box"></i>
+                    </span>
+                        <span class="title">Scolarité</span>
+                        <span class="arrow">
+                        <i class="ti-angle-right"></i>
+                    </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item dropdown {% if menu_scolarite_list is defined %} open actived{% endif %}">
+                            <a href="#">
+                                <span>Personnel Scolarité</span>
+                                <span class="arrow">
+                                    <i class="ti-angle-right"></i>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {{ render(controller('App\\Controller\\Menu\\MenuController::list')) }}
+                            </ul>
+                        </li>
+                        <li><a href="{{ path('scolarite_type_list') }}">Poste</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item  {% if menu_docs is defined %} actived{% endif %}">
+                <a class="sidebar-link" href="{{ path('app_calendar_calendrier') }}">
+                    <span class="icon-holder">
+                        <i class="c-blue-500 ti-info-alt"></i>
+                    </span>
+                    <span class="title">Calendar</span>
+                </a>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_PROFS') %}
+                    <li class="nav-item dropdown {% if menu_administration is defined %} open actived{% endif %}">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                            <span class="icon-holder">
+                                <i class="ti-home"></i>
+                            </span>
+                                <span class="title">Infrastructure</span>
+                                <span class="arrow">
+                                <i class="ti-angle-right"></i>
+                            </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('room_list') }}">Salle</a></li>
+                                <li><a href="{{ path('app_fourniture') }}">Fourniture</a></li>
+                            </ul>
+                    </li>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFS') %}
+
+                <li class="nav-item {% if menu_matiere is defined %} actived{% endif %}">
+                    <a class="sidebar-link" href="{{ path('subject_list') }}">
+                    <span class="icon-holder">
+                        <i class="c-blue-500 ti-book"></i>
+                    </span>
+                        <span class="title">Matières</span>
+                    </a>
+            
+                    
+                </li>
+                {% endif %}
+                {% if is_granted('ROLE_PROFS') %}
+
+                        <li class="nav-item dropdown {% if menu_etablissement is defined or menu_room is defined %}open actived{% endif %}">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                            <span class="icon-holder">
+                                <i class="c-red-500 ti-settings"></i>
+                            </span>
+                                <span class="title">Assiduité</span>
+                                <span class="arrow">
+                                <i class="ti-angle-right"></i>
+                            </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item {% if menu_room is defined %}actived{% endif %}">
+                                    <a href="{{ path('liste_presence_eleve') }}">
+                                        <span class="title">Liste</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item {% if menu_room is defined %}actived{% endif %}">
+                                    <a href="{{ path('app_presence_eleve',{"id":app.user.id}) }}">
+                                        <span class="title">Presence</span>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        
+                {% endif %}
+                {% if not is_granted('ROLE_PROFS') and is_granted('ROLE_ADMIN')%}
+
+                            <li class="nav-item dropdown {% if menu_etablissement is defined or menu_room is defined %}open actived{% endif %}">
+                            <a class="dropdown-toggle" href="javascript:void(0);">
+                            <span class="icon-holder">
+                                <i class="c-red-500 ti-settings"></i>
+                            </span>
+                                <span class="title">Assiduite</span>
+                                <span class="arrow">
+                                <i class="ti-angle-right"></i>
+                            </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item ">
+                                    <a href="{{ path('assiduide_liste') }}">
+                                        <span class="title">Liste</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a href="{{ path('assiduite') }}">
+                                        <span class="title">Manage</span>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </li>
+                        
+                        {% endif %}
+
+            
+
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_PROFS') %}
+
+                <li class="nav-item">
+                    <a class="sidebar-link" href="{{ path('section_list') }}">
+                    <span class="icon-holder">
+                        <i class="c-orange-500 ti-list"></i>
+                    </span>
+                        <span class="title">Section / Niveau</span>
+                    </a>
+                </li>
+            {% endif %}
+            <hr style="color: white;border: solid 1px white">
+            <ul>
+                <li>
+                    <i class="ti-user"></i>
+                    {{ app.user.username }} <span class="badge badge-warning">{{ app.user.roles|join }}</span>
+                </li>
+            </ul>
+        </ul>
+    </div>
+</div>

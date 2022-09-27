@@ -1,0 +1,99 @@
+{% extends 'admin/_base_admin.html.twig' %}
+{% set menu_scolarite_list =true %}
+{% set menu_scolarite =true %}
+{% set menu_user =true %}
+{% block title %}Scolarité{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="c-grey-900 mB-20 ">{{ types.libelle }}</h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="{{ path('scolarite_manage',{'type':types.id}) }}" class="btn btn-primary">Nouveau</a>
+                    </div>
+                </div>
+                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Matricule</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Matricule</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
+                    </tr>
+                    </tfoot>
+                    <tbody>
+
+                    {% for sec in secretaire %}
+                        {% if sec.deletedAt  == null %}
+                            <tr>
+                                <td>{{ sec.getNom() }}</td>
+                                <td>{{ sec.getPrenom() }}</td>
+                                <td>{{ sec.getImatriculation() }}</td>
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                                    <td>
+                                        <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                           href="{{ path('scolarite_manage',{'id': sec.id,'type':types.id}) }}">
+                                            <i class="ti-pencil"></i>
+                                        </a>
+                                        <a class="btn btn-outline-primary btn-sm" title="Details"
+                                           href="{{ path('scolarite_user_details',{'id': sec.id }) }}">
+                                            <i class="ti-eye"></i>
+                                        </a>
+                                        <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                           href="{{ path('scolarite_remove',{'id':sec.id}) }}">
+                                            <i class="ti-trash"></i>
+                                        </a>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+
+
+                    {% for el in eleve %}
+                        {% if el.deletedAt  == null %}
+                            <tr>
+                                <td>{{ el.getNom() }}</td>
+                                <td>{{ el.getPrenom() }}</td>
+                                <td>{{ el.getImatriculation() }}</td>
+                                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                                    <td>
+                                        <a class="btn btn-outline-success btn-sm" title="Modifier"
+                                           href="{{ path('scolarite_manage',{'id': el.id,'type':types.id}) }}">
+                                            <i class="ti-pencil"></i>
+                                        </a>
+                                        <a class="btn btn-outline-primary btn-sm" title="Details"
+                                           href="{{ path('scolarite_user_details',{'id': el.id }) }}">
+                                            <i class="ti-eye"></i>
+                                        </a>
+                                        {# <a class="btn btn-outline-danger btn-sm" title="Supprimer"
+                                           href="{{ path('scolarite_remove',{'id':el.id}) }}">
+                                            <i class="ti-trash"></i>
+                                        </a> #}
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
