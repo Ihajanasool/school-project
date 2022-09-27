@@ -1,40 +1,43 @@
 
 ###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/public/bundles/
-/var/
-/vendor/
+/app/.env.local
+/app/.env.local.php
+/app/.env.*.local
+/bundles/
+/app/var/*
+/app/vendor/
 /Symfony2-coding-standard/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
-.phpunit
-.phpunit.result.cache
-/phpunit.xml
+/app/.phpunit
+/app/.phpunit.result.cache
+/app/phpunit.xml
 ###< symfony/phpunit-bridge ###
 
 ###> symfony/web-server-bundle ###
-/.web-server-pid
+/app/.web-server-pid
 ###< symfony/web-server-bundle ###
 
 ###> symfony/webpack-encore-bundle ###
-/node_modules/
-/public/build/
-npm-debug.log
-yarn-error.log
+/app/node_modules/
+/build/
+/app/npm-debug.log
+/app/yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 ###> ide/phpstorm ###
 /.idea
 ###< ide/phpstorm ###
 ###> squizlabs/php_codesniffer ###
-/.phpcs-cache
-/phpcs.xml
+/app/.phpcs-cache
+/app/phpcs.xml
 ###< squizlabs/php_codesniffer ###
 
 ###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
+/app/phpunit.xml
+/app/.phpunit.result.cache
 ###< phpunit/phpunit ###
+
+/app/composer.lock
+/app/package-lock.json
