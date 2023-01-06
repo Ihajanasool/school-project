@@ -16,7 +16,13 @@ use DateTime;
 
 class FournitureController extends AbstractController
 {
-    #[Route('/fourniture', name: 'app_fourniture')]
+    /**
+     * @Route("/fourniture", name="app_fourniture")
+     *
+     **/
+
+//    #[Route('/fourniture', name: 'app_fourniture')]
+
     public function index(FournitureRepository $repo): Response
     {
         $koko = $repo->findAll();
@@ -27,7 +33,13 @@ class FournitureController extends AbstractController
         ]);
     }
 
-    #[Route('/fourniture/manage', name: 'create_fourniture')]
+    /**
+     * @Route("/fourniture/manage", name="create_fourniture")
+     *
+     **/
+
+//    #[Route('/fourniture/manage', name: 'create_fourniture')]
+
     public function manage(Request $request, EntityManagerInterface $em, Fourniture $fourniture = null): Response
     {
 

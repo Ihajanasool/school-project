@@ -101,4 +101,29 @@ class SekolikoDocsController extends AbstractBaseController
 
         return $this->redirectToRoute('docs_accueil');
     }
+
+    /**
+     * @Route("/test/pdf",name="test",methods={"POST","GET"})
+     *
+     * @return RedirectResponse|Response
+     */
+
+    public function test()
+    {
+        $docs = $this->docsRepository->findAll();
+
+        require 'vendor/autoload.php';
+
+        $PDF = new \mikehaertl\wkhtmlto\Pdf('string');
+
+        $PDF->send();
+
+
+
+        return $this->render('admin/content/Docs/test.html.twig', ['docs' => $docs]);
+
+//        return $this->redirectToRoute('docs_accueil');
+    }
 }
+
+

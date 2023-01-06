@@ -114,9 +114,12 @@ class PaymentController extends AbstractController
         return $this->render('payment/payment_mange.html.twig');
     }
 
+    /**
+     *
+     * @route("/payment/cantineAdd", name="cantine_create", methods={"POST","GET"})
+     */
 
-
-    #[Route('/payment/cantineAdd', name: 'cantine_create', methods: ["GET", "POST"])]
+//    #[Route('/payment/cantineAdd', name: 'cantine_create', methods: ["GET", "POST"])]
     public function cantineCreate(Request $request, EntityManagerInterface $em, Payment $Payment = null)
     {
         
@@ -157,7 +160,12 @@ class PaymentController extends AbstractController
 
     }
 
-    #[Route('/payment/ecolageAdd', name: 'ecolage_create', methods: ["GET", "POST"])]
+    /**
+     *
+     * @route("/payment/ecolageAdd", name="ecolage_create", methods={"POST","GET"})
+     */
+
+//    #[Route('/payment/ecolageAdd', name: 'ecolage_create', methods: ["GET", "POST"])]
     public function ecolageCreate(Request $request, EntityManagerInterface $em, Payment $Payment = null)
     {
         
