@@ -2,7 +2,7 @@
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 
-    {% block content %}
+    {% block content%}
         <head>
             <link rel="stylesheet" href={{ absolute_url(asset('build/app.css')) }}>
         </head>
@@ -44,6 +44,7 @@
         </style>
 
         <h1>Reçu</h1>
+        <p>{{ data }}</p>
         <div class="dateTime"> Date : 25 Avril 2023 </div>
         <div>
             <div class="address">
@@ -62,21 +63,11 @@
                 <th>Prix</th>
             </tr>
             <tr>
-                <td>{{ ITEM 1  }}</td>
-                <td>{{ PRICE 2 }}</td>
+                <td>item1</td>
+                <td>price1</td>
             </tr>
-            <tr>
-                <td>[ITEM 2 DESCRIPTION]</td>
-                <td>[ITEM 2 PRICE]</td>
-            </tr>
-            <tr>
-                <td>Taxes</td>
-                <td>[TAX AMOUNT]</td>
-            </tr>
-            <tr>
-                <td>Total</td>
-                <td>[TOTAL AMOUNT]</td>
-            </tr>
+            <button>Ajouter</button>
+
         </table>
 
 {#        <div class="title">#}

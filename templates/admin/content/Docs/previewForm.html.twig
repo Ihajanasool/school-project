@@ -1,0 +1,32 @@
+{% extends 'admin/_base_admin.html.twig' %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+    {% block content %}
+        <body>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                    <h4>exemple de certificat de scolarité</h4>
+                    <br>
+                    <div class="col-md-12 d-block">
+                        <div class="form-group">
+                            <label>Nom</label>
+                            <input type="text" maxlenght="255" required="require" name="nomEleve">
+                        </div>
+
+{#                       <div class="form-group 2">#}
+{#                           <label>date</label>#}
+{#                           <input type="date" maxlenght="255" required="require">#}
+{#                       </div>#}
+                        <a href="{{ path('subject_list') }}" class="btn btn-warning">Annuler</a>
+                        <input type="submit" class="btn btn-primary float-right" value="Enregistrer">
+
+{#                            <p>{{ data }}</p>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </body>
+    {% endblock %}

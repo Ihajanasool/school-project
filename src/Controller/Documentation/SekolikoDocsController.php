@@ -108,6 +108,27 @@ class SekolikoDocsController extends AbstractBaseController
     }
 
     /**
+     * @Route("/preview/",name="preview",methods={"POST","GET"})
+     *
+     * @return RedirectResponse|Response
+     */
+
+    public function preview()
+    {
+        //ici je récupère les données dans input
+//        $data = $_POST['nomEleve'];
+
+        //ici, je stock les données dans une variable de session
+//        session_start();
+//        $_SESSION['data'] = $data;
+
+        $docs = $this->docsRepository->findAll();
+
+        return $this->render('admin/content/Docs/previewForm.html.twig', ['docs' => $docs]);
+    }
+
+
+    /**
      * @Route("/test/pdf/",name="test",methods={"POST","GET"})
      *
      * @return RedirectResponse|Response
@@ -120,6 +141,13 @@ class SekolikoDocsController extends AbstractBaseController
 
         $type = $get['type'];
         $id = $get['id'];
+
+        //ici je récupère les données dans input
+        $data = $_POST['nomEleve'];
+
+        //ici, je stock les données dans une variable de session
+        session_start();
+        $_SESSION['data'] = $data;
 
 
         // Configure Dompdf according to your needs
@@ -138,52 +166,59 @@ class SekolikoDocsController extends AbstractBaseController
         // Retrieve the HTML generated in our twig file
         $html = $this->render('admin/content/Docs/test.html.twig', [
             'name' => $name,
-            'id' => $id
-
+            'id' => $id,
+            'data'=> $data
         ]);
 
 
-        // Load HTML to Dompdf
-        $dompdf->loadHtml($html);
 
+        // Load HTML to Dompdf
+          $dompdf->loadHtml($html);
 
         // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-        $dompdf->setPaper('A4', 'portrait');
+//        $dompdf->setPaper('A4', 'portrait');
 
 
         // Render the HTML as PDF
         $dompdf->render();
 
-        $exportName = $type . '-' . $id . '.pdf';
+        $exportName =$type . '-' . $id . '.pdf';
 
-//        ob_get_clean();
         // Output the generated PDF to Browser (force download)
         $dompdf->stream($exportName, [
-            "Attachment" => false
+            'Attachment' => false
         ]);
 
         exit(0);
-        return $this->render('admin/content/Docs/test.html.twig');
+//      ob_get_clean();
+
+
+//        return $this->render('admin/content/Docs/test.html.twig');
 
 //        return $this->redirectToRoute('docs_accueil');
-    }
 
-//    public function test()
-//    {
-//        $docs = $this->docsRepository->findAll();
+//        ***generer un table row
+
+//        $description = $request->request->get('description');
+//        $price = $request->request->get('price');
 //
-//        require 'vendor/autoload.php';
+//        $newRow = '<tr><td>' . $description . '</td><td>' . $price . '</td></tr>';
 //
-//        $PDF = new \mikehaertl\wkhtmlto\Pdf('string');
+//        $tableData = $this->get('session')->get('table_data', []);
+//        $tableData[] = $newRow;
+//        $this->get('session')->set('table_data', $tableData);
 //
-//        $PDF->send();
-//
-//
-//
-//        return $this->render('admin/content/Docs/test.html.twig', ['docs' => $docs]);
-//
-////        return $this->redirectToRoute('docs_accueil');
-//    }
+//        return $this->render('admin/content/Docs/test.html.twig', [
+//            'table_data' => $tableData
+//        ]);
+
+
+//        $response->headers->set('Content-Type', 'application/pdf');
+//        $response->headers->set('Content-Disposition', 'inline; filename="'.$exportName.'"');
+//        $response->setContent($dompdf->output());
+//        $response = new Response();
+//        return $response;
+    }
 }
 
 
