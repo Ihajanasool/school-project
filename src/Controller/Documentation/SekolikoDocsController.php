@@ -20,6 +20,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 /**
  * Class SekolikoDocsController.
  *
@@ -103,27 +108,83 @@ class SekolikoDocsController extends AbstractBaseController
     }
 
     /**
-     * @Route("/test/pdf",name="test",methods={"POST","GET"})
+     * @Route("/test/pdf/",name="test",methods={"POST","GET"})
      *
      * @return RedirectResponse|Response
      */
 
-    public function test()
+    public function index(Request $request)
     {
-        $docs = $this->docsRepository->findAll();
+//        dd($request);
+        $get = $request->query->all();
 
-        require 'vendor/autoload.php';
-
-        $PDF = new \mikehaertl\wkhtmlto\Pdf('string');
-
-        $PDF->send();
+        $type = $get['type'];
+        $id = $get['id'];
 
 
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
 
-        return $this->render('admin/content/Docs/test.html.twig', ['docs' => $docs]);
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->set('isRemoteEnabled', 'true');
+
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+
+        $name = 'Koko';
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->render('admin/content/Docs/test.html.twig', [
+            'name' => $name,
+            'id' => $id
+
+        ]);
+
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $exportName = $type . '-' . $id . '.pdf';
+
+//        ob_get_clean();
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream($exportName, [
+            "Attachment" => false
+        ]);
+
+        exit(0);
+        return $this->render('admin/content/Docs/test.html.twig');
 
 //        return $this->redirectToRoute('docs_accueil');
     }
+
+//    public function test()
+//    {
+//        $docs = $this->docsRepository->findAll();
+//
+//        require 'vendor/autoload.php';
+//
+//        $PDF = new \mikehaertl\wkhtmlto\Pdf('string');
+//
+//        $PDF->send();
+//
+//
+//
+//        return $this->render('admin/content/Docs/test.html.twig', ['docs' => $docs]);
+//
+////        return $this->redirectToRoute('docs_accueil');
+//    }
 }
+
 
 
