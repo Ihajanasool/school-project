@@ -22,6 +22,21 @@ class Description
      */
     private $descriptions;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prices;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Recu::class, inversedBy="descriptionss")
+     */
+    private $recu;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $label;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +50,42 @@ class Description
     public function setDescriptions(?Recu $descriptions): self
     {
         $this->descriptions = $descriptions;
+
+        return $this;
+    }
+
+    public function getPrices(): ?string
+    {
+        return $this->prices;
+    }
+
+    public function setPrices(string $prices): self
+    {
+        $this->prices = $prices;
+
+        return $this;
+    }
+
+    public function getRecu(): ?Recu
+    {
+        return $this->recu;
+    }
+
+    public function setRecu(?Recu $recu): self
+    {
+        $this->recu = $recu;
+
+        return $this;
+    }
+
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+
+    public function setLabel(string $label): self
+    {
+        $this->label = $label;
 
         return $this;
     }

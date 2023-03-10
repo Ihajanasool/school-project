@@ -37,7 +37,8 @@ class FournitureController extends AbstractController
      * @route("fourniture/manage", name="create_fourniture", methods={"POST","GET"})
      */
 
-    #[Route('/fourniture/manage', name: 'create_fourniture')]
+//    #[Route('/fourniture/manage', name: 'create_fourniture')]
+
     public function manage(Request $request, EntityManagerInterface $em, Fourniture $fourniture = null): Response
     {
 

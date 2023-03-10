@@ -1,10 +1,54 @@
 {% extends 'admin/_base_admin.html.twig' %}
 {% block content %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
+
+        {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+        {{ form_row(form.date) }}
+
+
+        <ul id="descriptions" data-prototype="{{ form_widget(form.descriptions.vars.prototype)|e }}"
+                                data-widget-counter="{{ form.descriptions|length}}"
+                                data-widget-tags=" {{ '<li></li>'|e }}"
+        >
+            {% for descriptionField in form.descriptions %}
+                <li>
+                    {{ form_errors(descriptionField) }}
+                    {{ form_widget(descriptionField) }}
+                </li>
+            {% endfor %}
+            <button type="button" class="add-collection btn btn-secondary" data-list-selector="#descriptions">
+                Ajouter une description
+            </button>
+        </ul>
     <div>
         <input type="submit" class="btn btn-primary float-right" value="Enregistrer">
     </div>
 
     {{ form_end(form) }}
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"  crossorigin="anonymous"></script>
+
+    <script>
+        console.log('test000000000000');
+        jQuery(document).ready(function() {
+            console.log('test11111111111');
+            jQuery('.add-collection').click(function (e) {
+                console.log('test22222222222');
+                var list = jQuery(jQuery(this).attr('data-list-selector'));
+
+                var prototype = list.data('widget-counter') || list.children().length;
+
+                var index = list.attr('data-prototype');
+
+                var newForm = index.replace(/__name__/g, prototype);
+
+                list.data('index', index + 1);
+
+                list.append(newForm);
+                console.log('test22222222222');
+
+            });
+        });
+    </script>
 {% endblock %}

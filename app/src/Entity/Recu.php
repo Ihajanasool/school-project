@@ -50,9 +50,15 @@ class Recu
      */
     private $descriptions;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Description::class, mappedBy="recu")
+     */
+    private $descriptionss;
+
     public function __construct()
     {
         $this->descriptions = new ArrayCollection();
+        $this->descriptionss = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,6 +150,36 @@ class Recu
             // set the owning side to null (unless already changed)
             if ($description->getDescriptions() === $this) {
                 $description->setDescriptions(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Description>
+     */
+    public function getDescriptionss(): Collection
+    {
+        return $this->descriptionss;
+    }
+
+    public function addDescriptionss(Description $descriptionss): self
+    {
+        if (!$this->descriptionss->contains($descriptionss)) {
+            $this->descriptionss[] = $descriptionss;
+            $descriptionss->setRecu($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDescriptionss(Description $descriptionss): self
+    {
+        if ($this->descriptionss->removeElement($descriptionss)) {
+            // set the owning side to null (unless already changed)
+            if ($descriptionss->getRecu() === $this) {
+                $descriptionss->setRecu(null);
             }
         }
 

@@ -122,8 +122,6 @@ class CertificatController extends AbstractController
             $certificat->setDateCertificat($data->getDateCertificat());
             $certificat->setStudent($data->getStudent());
 
-            dd($certificat);
-
             $entityManager->persist($certificat);
             $entityManager->flush();
 
