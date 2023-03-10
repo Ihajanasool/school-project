@@ -1,0 +1,57 @@
+{% extends 'admin/_base_admin.html.twig' %}
+
+
+
+{% block body %}
+    {% block content %}
+
+{#        <div class="logo"><img src="{{ asset('images/SekolikoLogo.png') }}" alt=""></div>#}
+
+            <div class="col-md-4">
+                <div class="bgc-white bd bdrs-3 p-20 mB-20">
+
+                    <br><br><br><br>
+
+                    <p>Je sousigné, Mme ......................................, Directrice de l'école Acacia school
+                        certifie que l'élève {{ certificats.nom }} <br><br>{{ certificats.prenom }}, Née le {{ certificats.DateNaissance|date('d-M-Y') }} ,
+                        est élève dans mon établissement,
+                            pendant l'année scolaire 2023/2024 <br><br>
+                            En foi de quoi, le présent certificat lui est délivré pour servir et valoir ce que de droit.
+                        <br><br><br><br>
+                    </p>
+                    <div>
+                        <h4>Fait à  Antananarivo le {{ certificats.DateCertificat|date('d-M-Y') }}</h4>
+
+                        <h4 id="sign">Signature</h4>
+                    </div>
+                </div>
+            </div>
+
+
+        <style>
+
+            /*.row {*/
+            /*    position: center;*/
+            /*    !*border: solid 1px green;*!*/
+            /*    display: flex;*/
+            /*}*/
+            /*.logo {*/
+            /*    margin-top: 100px;*/
+            /*    margin-left: 100px;*/
+            /*    margin-right: 100px;*/
+            /*    border: solid 1px #e12222;*/
+            /*    display: flex;*/
+            /*    position: center;*/
+            /*}*/
+            p   {
+                font-size: 17px;
+            }
+
+            #sign   {
+                text-align: right;
+            }
+        </style>
+    {% endblock %}
+
+
+{% endblock %}

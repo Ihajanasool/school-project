@@ -1,0 +1,80 @@
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block content%}
+        <head>
+            <link rel="stylesheet" href={{ absolute_url(asset('build/app.css')) }}>
+        </head>
+        <body>
+        <style>
+
+            /*h1{*/
+            /*    padding-left: 500px;*/
+            /*}*/
+
+            body {
+                margin: 0 0 70px 0;
+            }
+
+            .address_label{
+                color: #555555;
+                float: left;
+                width: 105px;
+                text-align: right;
+                border:5px solid red;
+
+            }
+
+            .address_content {
+                border:5px solid green;
+                width: 115px;
+                padding-left: 150px;
+                display: flex;
+                flex-direction: row;
+            }
+
+            .dateTime{
+                text-align: right;
+                border: 5px solid black;
+                float: right;
+                display: flex;
+                flex-direction: row;
+            }
+        </style>
+
+        <h1>Reçu</h1>
+        <p>{{ data }}</p>
+        <div class="dateTime"> Date : 25 Avril 2023 </div>
+        <div>
+            <div class="address">
+                <div class="address_label">De</div>
+                <div class="address_content">
+                    <strong> johan.</strong>
+                    <p>Adresse</p>
+                    <p>Numéro de facture : [INVOICE NUMBER]</p>
+                </div>
+            </div>
+
+        </div>
+        <table>
+            <tr>
+                <th>Description</th>
+                <th>Prix</th>
+            </tr>
+            <tr>
+                <td>item1</td>
+                <td>price1</td>
+            </tr>
+            <button>Ajouter</button>
+
+        </table>
+
+{#        <div class="title">#}
+{#            <h1>{{ id }} - Hello {{ name }}</h1>#}
+{#            <h1>{{ name }}</h1>#}
+{#        </div>#}
+        </body>
+
+
+    {% endblock %}

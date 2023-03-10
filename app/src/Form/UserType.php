@@ -1,12 +1,11 @@
 <?php
-/**
- * Julien Rajerison <julienrajerison5@gmail.com>.
- **/
+
 
 namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -51,13 +50,13 @@ class UserType extends AbstractType
             )
             ->add(
                 'birthDate',
-                DateTimeType::class,
+                BirthdayType::class,
                 [
                     'label' => 'Date de naissance',
                     'widget' => 'choice',
                     'html5' => false,
                     
-                    'format' => 'Y-m-d H:i',
+//                    'format' => "Y M D",
                 ]
             )
             ->add(
@@ -78,9 +77,14 @@ class UserType extends AbstractType
                     'constraints' => [
                         new File([
                             'maxSize' => '1024k',
-                            'mimeTypesMessage' => 'Please upload a valid Images document',
+                            'mimeTypesMessage' => 'Please, upload a valid Images document',
+                            'mimeTypes' => [
+                                'image/jpeg',
+                                'image/jpg',
+                                'image/png'
+                            ],
                         ]),
-                    ],
+                    ]
                 ]
             )
             ->add(

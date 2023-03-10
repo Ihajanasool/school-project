@@ -119,7 +119,6 @@ class PaymentController extends AbstractController
      * @route("/payment/cantineAdd", name="cantine_create", methods={"POST","GET"})
      */
 
-//    #[Route('/payment/cantineAdd', name: 'cantine_create', methods: ["GET", "POST"])]
     public function cantineCreate(Request $request, EntityManagerInterface $em, Payment $Payment = null)
     {
         
@@ -162,7 +161,7 @@ class PaymentController extends AbstractController
 
     /**
      *
-     * @route("payment/ecolageAdd", name="ecolage_create", methods={"POST","GET"})
+     * @route("/payment/ecolageAdd", name="ecolage_create", methods={"POST","GET"})
      */
 
 //    #[Route('/payment/ecolageAdd', name: 'ecolage_create', methods: ["GET", "POST"])]
@@ -206,6 +205,17 @@ class PaymentController extends AbstractController
 
        
     }
-   
+    #[Route('/payment/researchEcolage', name: 'ecolage_search', methods: ["GET", "POST"])]
+    public function researchEcolage(Request $request, EntityManagerInterface $em, PaymentRepository $repository )
+    {
+
+
+
+        $query = $request->get('query');
+        $entities = $repository->findAll();
+//        dump("zorghzorghzghzohgzuhgozrhgozrghzrougzrg");
+        return $this->json($entities);
+    }
+
 
 }
