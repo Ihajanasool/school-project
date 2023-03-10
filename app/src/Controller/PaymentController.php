@@ -206,6 +206,17 @@ class PaymentController extends AbstractController
 
        
     }
-   
+    #[Route('/payment/researchEcolage', name: 'ecolage_search', methods: ["GET", "POST"])]
+    public function researchEcolage(Request $request, EntityManagerInterface $em, PaymentRepository $repository )
+    {
+
+
+
+        $query = $request->get('query');
+        $entities = $repository->findAll();
+        dump("zorghzorghzghzohgzuhgozrhgozrghzrougzrg");
+        return $this->json($entities);
+    }
+
 
 }

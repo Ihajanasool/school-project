@@ -158,7 +158,7 @@ class User implements UserInterface
     private $assiduites;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $Session;
 

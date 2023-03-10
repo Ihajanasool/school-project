@@ -97,6 +97,11 @@ class Student
     private $presenceEleves;
 
     /**
+     * @ORM\OneToMany(targetEntity=Certificat::class, mappedBy="student")
+     */
+    private $certificats;
+
+    /**
      * Student constructor.
      */
     public function __construct()
@@ -105,6 +110,7 @@ class Student
         $this->studentNotes = new ArrayCollection();
         $this->ecolages = new ArrayCollection();
         $this->presenceEleves = new ArrayCollection();
+        $this->certificats = new ArrayCollection();
     }
 
     /**
@@ -437,6 +443,36 @@ class Student
             // set the owning side to null (unless already changed)
             if ($presenceElefe->getEleve() === $this) {
                 $presenceElefe->setEleve(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Certificat>
+     */
+    public function getCertificats(): Collection
+    {
+        return $this->certificats;
+    }
+
+    public function addCertificat(Certificat $certificat): self
+    {
+        if (!$this->certificats->contains($certificat)) {
+            $this->certificats[] = $certificat;
+            $certificat->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCertificat(Certificat $certificat): self
+    {
+        if ($this->certificats->removeElement($certificat)) {
+            // set the owning side to null (unless already changed)
+            if ($certificat->getStudent() === $this) {
+                $certificat->setStudent(null);
             }
         }
 

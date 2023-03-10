@@ -1,0 +1,93 @@
+{% extends 'admin/_base_admin.html.twig' %}
+{% block title %}Journal{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="bgc-white bd bdrs-3 p-20 mB-20">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="c-grey-900 mB-20">Presence du jours</h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        
+                        <a href="{{ path('dede',{"classe":classe.id}) }}" class="btn btn-primary">Aujourd'hui</a>
+                        
+                    </div>
+                    <table id="dataTable" class="table table-hover table-striped table-sm table-bordered " cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Photo</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
+                        
+                        
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Photo</th>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DIRECTION') %}
+                            <th>Action</th>
+                        {% endif %}
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for student in students %}
+                        <tr>
+                            <td>{{ student.user.nom }}</td>
+                            <td>{{ student.user.prenom }}</td>
+                            <td>
+                                <img src="{{ asset('/uploads/phototechzara/'~student.user.photo) }}"
+                                     class="w-3r h-3r bdrs-50p" alt="">
+                            </td>
+                            <td>
+                            
+                               <label for="student-status-checkbox-{{ student.user.id }}">
+                                <input type="checkbox" id="student-status-checkbox-{{ student.user.id }}" class = "student-status-checkbox" data-student-id="{{ student.user.id }}" >
+                                {{ student.user.nom }}
+</label>
+                            </td>
+                            
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+                <script>
+                                var checkboxs = document.getElementsByClassName("student-status-checkbox");
+                                for (var i = 0; i < checkboxs.length; i++){
+                                    checkboxs[i].addEventListener("change", function() {
+                                    var studentId = this.dataset.studentId;
+                                    var checked = this.checked;
+                                    
+                                    var xhr = new XMLHttpRequest();
+                        
+                                    xhr.open("POST", "{{ path('update_status') }}", true);
+                                    
+                                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                    
+                                    xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                var response = JSON.parse(xhr.responseText);
+                                console.log(response);
+                            }
+                        };
+                        console.log(studentId, checked);
+                        xhr.send("studentId=" + studentId + "&checked=" + checked);
+                        console.log("Vraiii");
+                        });
+                    }
+    
+                </script>
+                
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock %}

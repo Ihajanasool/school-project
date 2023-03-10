@@ -83,8 +83,8 @@ class FrontController extends AbstractBaseController
     public function sendEmail(Request $request, Swift_Mailer $mailer)
     {
         $data = json_decode($request->getContent(), true);
-        $name = $data['name'] ?? 'Sekoliko';
-        $email = $data['email'] ?? 'sekoliko.mada@gmail.com';
+        $name = $data['name'] ?? 'sekoliko';
+        $email = $data['email'] ?? 'association.fammmi@gmail.com';
         $subject = $data['subject'] ?? 'No subject';
         $message = $data['message'] ?? 'No message';
 
@@ -94,7 +94,7 @@ class FrontController extends AbstractBaseController
             $swMessage = (new Swift_Message())
                 ->setSubject($subject)
                 ->setFrom($email, $name)
-                ->setCc('julienrajerison5@gmail.com')
+//                 ->setCc('julienrajerison5@gmail.com')
                 ->setTo($this->getParameter('default_email'))
                 ->setBody($message, 'text/plain');
 

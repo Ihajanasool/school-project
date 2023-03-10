@@ -20,6 +20,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 /**
  * Class SekolikoDocsController.
  *
@@ -100,5 +105,63 @@ class SekolikoDocsController extends AbstractBaseController
         }
 
         return $this->redirectToRoute('docs_accueil');
+    }
+
+
+    /**
+     * @Route("/test/pdf/",name="test",methods={"POST","GET"})
+     *
+     * @return RedirectResponse|Response
+     */
+
+    public function index(Request $request)
+    {
+//        dd($request);
+        $get = $request->query->all();
+
+        $type = $get['type'];
+        $id = $get['id'];
+
+
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->set('isRemoteEnabled', 'true');
+
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+
+        $name = 'Koko';
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->render('admin/content/Docs/test.html.twig', [
+            'name' => $name,
+            'id' => $id,
+        ]);
+
+
+
+        // Load HTML to Dompdf
+          $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+//        $dompdf->setPaper('A4', 'portrait');
+
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        $exportName =$type . '-' . $id . '.pdf';
+
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream($exportName, [
+            'Attachment' => false
+        ]);
+
+        exit(0);
+//      ob_get_clean();
     }
 }
